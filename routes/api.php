@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth as AuthController;
 use App\Http\Controllers\User as UserController;
+use App\Http\Controllers\Img as ImgController;
 use App\Http\Controllers\UserPlayers as UserPlayersController;
 
 /*
@@ -29,6 +30,10 @@ Route::prefix('user')->middleware('auth:sanctum')->group(function () {
     Route::get('/info', [UserController::class, "updateUserInfo"]);
     Route::put('/players', [UserPlayersController::class, "resetUserPlayers"]);
     Route::get('/players', [UserPlayersController::class, "getUserPlayers"]);
+});
+
+Route::prefix('resource')->group(function() {
+    Route::post('/img', [ImgController::class, 'uploadImg']);
 });
 
 
