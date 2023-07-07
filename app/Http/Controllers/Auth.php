@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\User as UserModel;
 use App\Models\img as ImgModel;
 use Illuminate\Support\Facades\Auth as AuthFacade;
+use App\Http\Controllers\Img as ImgController;
 
 class Auth extends Controller
 {
@@ -17,7 +18,12 @@ class Auth extends Controller
        ]);
 
        $data = $req->all();
+
+       if($req->hasFile('img'))
+        $data["img_url"] = (new ImgController())->uploadImg($req);
+
        $data["img_id"] = ImgModel::getImgIdByUrl($data["img_url"]);
+
        UserModel::create($data);
 
        return $this->logIn($req);
