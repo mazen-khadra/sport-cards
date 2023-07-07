@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\img As ImgModel;
+use Illuminate\Support\Facades\Date;
 
 class Img extends Controller
 {
