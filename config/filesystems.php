@@ -45,8 +45,8 @@ return [
         ],
         'public-imgs' => [
             'driver' => 'local',
-            'root' => storage_path('app/public/imgs'),
-            'url' => env('APP_URL').'/storage/imgs',
+            'root' => storage_path('app/public/public-imgs'),
+            'url' => env('APP_URL').'/storage/public-imgs',
             'visibility' => 'public',
             'throw' => false,
         ],
@@ -76,7 +76,7 @@ return [
     */
 
     'links' => [
-        public_path('imgs') => storage_path('app/public/imgs'),
+        public_path('public-imgs') => storage_path('app/public/imgs'),
     ],
 
 ];
