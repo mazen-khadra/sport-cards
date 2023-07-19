@@ -23,6 +23,12 @@ class Handler extends ExceptionHandler
      */
     public function register(): void
     {
+        $this->renderable(function (ValidationException $e) {
+            $error = array_values($e->errors());
+            $error = !empty($error) ? $error[0][0] : null;
+            return response(["message" => $error], 422);
+        });
+
         $this->reportable(function (Throwable $e) {
             //
         });

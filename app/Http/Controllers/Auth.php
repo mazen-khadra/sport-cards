@@ -14,7 +14,8 @@ class Auth extends Controller
        $req->validate([
            "name" => "bail|required",
            "email" => "bail|required|email|unique:users",
-           "password" => "bail|required"
+           "password" => "bail|required",
+           "mobile" => "unique:users"
        ]);
 
        $data = $req->all();
