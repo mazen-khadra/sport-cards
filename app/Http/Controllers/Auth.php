@@ -15,7 +15,7 @@ class Auth extends Controller
            "name" => "bail|required",
            "email" => "bail|required|email|unique:users",
            "password" => "bail|required",
-           "mobile" => "unique:users"
+           "mobile" => "bail|unique:users"
        ]);
 
        $data = $req->all();
@@ -23,7 +23,8 @@ class Auth extends Controller
        if($req->hasFile('img'))
         $data["img_url"] = (new ImgController())->uploadImg($req);
 
-       $data["img_id"] = ImgModel::getImgIdByUrl($data["img_url"]);
+       if(!empty($data["img_url"]))
+        $data["img_id"] = ImgModel::getImgIdByUrl($data["img_url"]);
 
        UserModel::create($data);
 
