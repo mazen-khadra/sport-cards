@@ -4,20 +4,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\userPlayers as UserPlayersModel;
+use App\Models\img as ImgModel;
 
 class UserPlayers extends Controller
 {
     public function getUserPlayers (Request $req, $userId = null) {
 
         $userId = $userId ?? $req->user()->id;
-        $players = UserPlayersModel::where('user_id', $userId)->select()->get();
-        $res = [];
-
-        foreach($players as $player) {
-            array_push($res, $player->player_id);
-        }
-
-        return $res;
+        return UserPlayersModel::where('user_id', $userId)->select()->get();
     }
 
     public function resetUserPlayers(Request $req, $userId = null) {
@@ -26,7 +20,14 @@ class UserPlayers extends Controller
         $data = [];
 
         foreach($players as $player) {
-            array_push($data, ["player_id" => $player, "user_id"=> $userId]);
+            array_push($data, [
+                "player_id" => $player['id'],
+                "name" => $player['name'],
+                "position" => $player['position'],
+                "market_value" => $player['market_value'],
+                "img_id" => ImgModel::getImgIdByUrl($player['img_url']),
+                "user_id"=> $userId
+            ]);
         }
 
         UserPlayersModel::where('user_id', $userId)->delete();
