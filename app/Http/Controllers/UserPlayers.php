@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Models\userPlayers as UserPlayersModel;
 use App\Models\img as ImgModel;
@@ -26,7 +27,9 @@ class UserPlayers extends Controller
                 "position" => $player['position'],
                 "market_value" => $player['market_value'],
                 "img_id" => ImgModel::getImgIdByUrl($player['img_url']),
-                "user_id"=> $userId
+                "user_id"=> $userId,
+                "created_at" => Carbon::now()->toDateTimeString(),
+                "updated_at" => Carbon::now()->toDateTimeString()
             ]);
         }
 
