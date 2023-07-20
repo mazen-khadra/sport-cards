@@ -30,6 +30,7 @@ Route::prefix('user')->middleware('auth:sanctum')->group(function () {
     Route::get('/info', [UserController::class, "updateUserInfo"]);
     Route::put('/players', [UserPlayersController::class, "resetUserPlayers"]);
     Route::get('/players', [UserPlayersController::class, "getUserPlayers"]);
+    Route::get('/list', [UserController::class, "index"]);
 });
 
 Route::prefix('resource')->group(function() {

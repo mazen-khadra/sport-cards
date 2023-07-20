@@ -24,7 +24,9 @@ class Auth extends Controller
         $data["img_url"] = (new ImgController())->uploadImg($req);
 
        if(!empty($data["img_url"]))
-        $data["img_id"] = ImgModel::getImgIdByUrl($data["img_url"]);
+         $data["img_id"] = ImgModel::getImgIdByUrl($data["img_url"]);
+       else
+         $data["img_id"] = ImgModel::getImgIdByUrl(config('app.default_user_img'));
 
        UserModel::create($data);
 

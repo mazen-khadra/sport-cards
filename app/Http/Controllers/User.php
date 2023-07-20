@@ -7,6 +7,10 @@ use App\Models\User as UserModel;
 
 class User extends Controller
 {
+    public function index() {
+        return UserModel::all();
+    }
+
     public function updateUserInfo(Request $req) {
         $data = $req->only([
             'img_url', 'name', 'birthdate', 'budget', 'score', 'mobile'

@@ -185,4 +185,5 @@ return [
         // 'Example' => App\Facades\Example::class,
     ])->toArray(),
 
+    'default_user_img' =>'public-imgs/default_user_img.png'
 ];
