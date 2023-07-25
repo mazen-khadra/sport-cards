@@ -28,9 +28,12 @@ Route::prefix('auth')->group(function () {
 Route::prefix('user')->middleware('auth:sanctum')->group(function () {
     Route::put('/info', [UserController::class, "updateUserInfo"]);
     Route::get('/info', [UserController::class, "updateUserInfo"]);
-    Route::put('/players', [UserPlayersController::class, "resetUserPlayers"]);
+    Route::put('/players', function($req) {
+        (new UserPlayersController())->resetUserPlayers($req, null, true);
+    });
     Route::get('/players', [UserPlayersController::class, "getUserPlayers"]);
     Route::get('/list', [UserController::class, "index"]);
+    Route::delete('/player', [UserPlayersController::class, "deletePlayer"]);
 });
 
 Route::prefix('resource')->group(function() {

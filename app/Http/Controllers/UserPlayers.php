@@ -15,7 +15,7 @@ class UserPlayers extends Controller
         return UserPlayersModel::where('user_id', $userId)->select()->get();
     }
 
-    public function resetUserPlayers(Request $req, $userId = null) {
+    public function resetUserPlayers(Request $req, $userId = null, $onlyAdd = null) {
         $userId = $userId ?? $req->user()->id;
         $players = $req->validate(["players" => "required"])["players"];
         $data = [];
@@ -33,8 +33,21 @@ class UserPlayers extends Controller
             ]);
         }
 
-        UserPlayersModel::where('user_id', $userId)->delete();
+        if(empty($onlyAdd))
+          UserPlayersModel::where('user_id', $userId)->delete();
+
         UserPlayersModel::insert($data);
+
+        return $this->getUserPlayers($req);
     }
 
+    public function deletePlayer(Request $req, $userId = null) {
+        $userId = $userId ?? $req->user()->id;
+        $playerId = $req->validate(["playerId" => "required"])["playerId"];
+
+        UserPlayersModel::where('player_id', $playerId)
+            ->where('user_id', $userId)->delete();
+
+        return $this->getUserPlayers($req);
+    }
 }
