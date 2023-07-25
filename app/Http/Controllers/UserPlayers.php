@@ -38,7 +38,7 @@ class UserPlayers extends Controller
 
         UserPlayersModel::insert($data);
 
-        return $this->getUserPlayers($req);
+        return ["message" => "success"];
     }
 
     public function deletePlayer(Request $req, $userId = null) {

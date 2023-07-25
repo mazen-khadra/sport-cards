@@ -29,7 +29,9 @@ Route::prefix('user')->middleware('auth:sanctum')->group(function () {
     Route::put('/info', [UserController::class, "updateUserInfo"]);
     Route::get('/info', [UserController::class, "updateUserInfo"]);
     Route::put('/players', function(Request $req) {
-        (new UserPlayersController())->resetUserPlayers($req, null, true);
+        return (new UserPlayersController())->resetUserPlayers (
+            $req, null, true
+        );
     });
     Route::get('/players', [UserPlayersController::class, "getUserPlayers"]);
     Route::get('/list', [UserController::class, "index"]);
