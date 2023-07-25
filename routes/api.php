@@ -6,6 +6,8 @@ use App\Http\Controllers\Auth as AuthController;
 use App\Http\Controllers\User as UserController;
 use App\Http\Controllers\Img as ImgController;
 use App\Http\Controllers\UserPlayers as UserPlayersController;
+use App\Http\Controllers\Invitation as InvitationController;
+use App\Http\Controllers\Matches as MatchesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,3 +45,13 @@ Route::prefix('resource')->group(function() {
 });
 
 
+Route::prefix('invitation')->middleware('auth:sanctum')->group(function() {
+    Route::get('/', [InvitationController::class, 'index']);
+    Route::post('/', [InvitationController::class, 'add']);
+    Route::put('/{invitation}/decide', [InvitationController::class, 'decide']);
+});
+
+Route::prefix('matches')->middleware('auth:sanctum')->group(function() {
+    Route::get('/', [MatchesController::class, 'index']);
+    Route::post('/', [MatchesController::class, 'add']);
+});

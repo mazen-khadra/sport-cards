@@ -22,7 +22,7 @@ return new class extends Migration
             $table->unsignedBigInteger('img_id')->nullable();
             $table->boolean('is_admin')->default(false);
 
-            $table->double('budget')->default(50000000);
+            $table->double('budget')->default(200000000);
             $table->double('score')->default(0);
 
 
