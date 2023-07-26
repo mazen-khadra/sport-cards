@@ -29,7 +29,7 @@ Route::prefix('auth')->group(function () {
 
 Route::prefix('user')->middleware('auth:sanctum')->group(function () {
     Route::put('/info', [UserController::class, "updateUserInfo"]);
-    Route::get('/info', [UserController::class, "updateUserInfo"]);
+    Route::get('/{user}/info', [UserController::class, "getDetails"]);
     Route::put('/players', function(Request $req) {
         return (new UserPlayersController())->resetUserPlayers (
             $req, null, true

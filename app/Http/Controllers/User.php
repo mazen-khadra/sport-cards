@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User as UserModel;
+use App\Http\Controllers\UserPlayers as UserPlayersController;
 
 class User extends Controller
 {
@@ -18,5 +19,11 @@ class User extends Controller
 
         $user = $req->user();
         $user->updateOrFail($data);
+    }
+
+    public function getDetails(Request $req, UserModel $user) {
+        $user->players = (new UserPlayersController())
+            ->getUserPlayers($req, $user->id);
+        return $user;
     }
 }
