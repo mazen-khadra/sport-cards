@@ -21,6 +21,7 @@ class User extends Controller
 
         $user = $req->user();
         $user->updateOrFail($data);
+        return ["message" => "success"];
     }
 
     public function getDetails(Request $req, UserModel $user) {
