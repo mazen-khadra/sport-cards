@@ -7,6 +7,7 @@ use App\Models\User as UserModel;
 use App\Models\img as ImgModel;
 use Illuminate\Support\Facades\Auth as AuthFacade;
 use App\Http\Controllers\Img as ImgController;
+use App\Http\Controllers\Matches as MatchController;
 
 class Auth extends Controller
 {
@@ -50,8 +51,11 @@ class Auth extends Controller
     }
 
     public function getLoggedInUser() {
-        if(AuthFacade::check())
-            return AuthFacade::user();
+        if(AuthFacade::check()) {
+            $user = AuthFacade::user();
+            $user->matchStats = (new MatchController())->getUserMatchesStats($user->id);
+            return $user;
+        }
 
         return response(null, 401);
     }

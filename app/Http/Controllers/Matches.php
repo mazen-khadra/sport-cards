@@ -30,5 +30,18 @@ class Matches extends Controller
         return ["message" => "success"];
     }
 
+    public function getUserMatchesStats($userId) {
+        $total = MatchModel::where('user_id', $userId)
+            ->orWhere('opponent_user_id', $userId)->count();
+        $wins = MatchModel::whereRaw("user_id = $userId AND result = 'WIN'")
+            ->orWhereRaw("opponent_user_id	 = $userId AND result = 'LOSE'")
+            ->count();
+        $loses = MatchModel::whereRaw("user_id = $userId AND result = 'LOSE'")
+            ->orWhereRaw("opponent_user_id = $userId AND result = 'WIN'")
+            ->count();
+
+        return [ "total"=> $total, "wins"=> $wins, "loses"=> $loses ];
+    }
+
 
 }
