@@ -9,8 +9,9 @@ use App\Http\Controllers\Matches as MatchesController;
 
 class User extends Controller
 {
-    public function index() {
-        return UserModel::all();
+    public function index(Request $req) {
+        $userId = $req->user()->id;
+        return UserModel::whereNot('id', $userId)->get();
     }
 
     public function updateUserInfo(Request $req) {
