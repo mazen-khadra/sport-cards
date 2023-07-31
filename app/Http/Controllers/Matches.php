@@ -8,11 +8,14 @@ use App\Models\Matches as MatchModel;
 class Matches extends Controller
 {
     public function index(Request $req, $onlyOwn = null) {
+        $onlyOwn = $onlyOwn ?? $req->query('onlyOwn');
         $data = MatchModel::query()->select();
         $userId = $req->user()->id;
 
-        if(!empty($onlyOwn))
-          $data = $data->where('user_id', $userId);
+        if(!empty($onlyOwn)) {
+          $data = $data->where('user_id', $userId)
+              ->orWhere('opponent_user_id', $userId);
+        }
 
         return $data->orderByDesc('created_at')->get();
     }
