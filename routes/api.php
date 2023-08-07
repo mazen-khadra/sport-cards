@@ -35,6 +35,7 @@ Route::prefix('user')->middleware('auth:sanctum')->group(function () {
             $req, null, true
         );
     });
+    Route::delete('/profile', [UserController::class, "deleteProfile"]);
     Route::get('/players', [UserPlayersController::class, "getUserPlayers"]);
     Route::get('/list', [UserController::class, "index"]);
     Route::delete('/player', [UserPlayersController::class, "deletePlayer"]);

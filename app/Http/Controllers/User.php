@@ -31,4 +31,10 @@ class User extends Controller
             ->getUserMatchesStats($user->id);
         return $user;
     }
+
+    public function deleteProfile(Request $req) {
+        $userId = $req->user()->id;
+        UserModel::whereKey($userId)->delete();
+        return ["message" => "success" ];
+    }
 }
