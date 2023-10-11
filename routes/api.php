@@ -62,4 +62,5 @@ Route::prefix('comment')->group(function() {
     Route::get('/', [CommentsController::class, 'index']);
     Route::post('/', [CommentsController::class, 'add']);
     Route::put('/{comment}', [CommentsController::class, 'update']);
+    Route::delete('/{comment}', [CommentsController::class, 'delete']);
 });
