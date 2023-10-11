@@ -8,6 +8,7 @@ use App\Http\Controllers\Img as ImgController;
 use App\Http\Controllers\UserPlayers as UserPlayersController;
 use App\Http\Controllers\Invitation as InvitationController;
 use App\Http\Controllers\Matches as MatchesController;
+use App\Http\Controllers\Comments as CommentsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -55,4 +56,10 @@ Route::prefix('invitation')->middleware('auth:sanctum')->group(function() {
 Route::prefix('matches')->middleware('auth:sanctum')->group(function() {
     Route::get('/', [MatchesController::class, 'index']);
     Route::post('/', [MatchesController::class, 'add']);
+});
+
+Route::prefix('comment')->group(function() {
+    Route::get('/', [CommentsController::class, 'index']);
+    Route::post('/', [CommentsController::class, 'add']);
+    Route::put('/{comment}', [CommentsController::class, 'update']);
 });
